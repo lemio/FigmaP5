@@ -1,194 +1,70 @@
-const mqttBroker = "ws://localhost:9001";
-const client = mqtt.connect(mqttBroker);
 
-client.on('connect', function () {
-  console.log('Connected to MQTT broker');
-  client.subscribe("#"); // Subscribe to any channel
-});
+ScaleScreen()
+let maxWeight = 500;
+let offset = 17000;
+let currentValue = 17000;
 
-let image1 = "";
-let programStatus = 0;
-const typeWriterSpeed = 40;
 
-client.on("message", (topic, message) => {
-  topic = topic.toString();
-  message = message.toString();
-  console.log(topic, message);
-  handleMQTTMessage(topic, message);
-});
-
-function handleMQTTMessage(topic, message) {
-  switch (topic) {
-    case "robotStatus":
-      handleRobotStatus(message);
-      break;
-    case "programStatus":
-      programStatus = Number(message);
-      break;
-    case "image":
-      image1 = message;
-      break;
-    case "blocks":
-      blocks = message;
-      break;
-  }
-}
-
-function handleRobotStatus(message) {
-  const modalElement = select(".Modal");
-  if (modalElement != null) {
-    if (message === '7') {
-      FigmaElement(".Modal").style("display", "none");
-    } else {
-      FigmaElement(".Modal").style("display", "block").style("opacity", "1");
+async function ConnectAbly() {
+  const realtimeClient = new Ably.Realtime({
+    key: '1aZF6A.gt939A:hrcPYLIfVugcTx7F0uugmetAVV3yM7ZQd2nN6gBlti0',
+    clientId: 'my-first-client'
+  });
+  await realtimeClient.connection.once('connected');
+  const channel = realtimeClient.channels.get('scale');
+  await channel.subscribe((message) => {
+    console.log(`Received message: ${message.data}`);
+    try {
+      result = JSON.parse(message.data);
+      FigmaText("#IngredientName", result.ingredient);
+      FigmaText("#TotalValue", result.totalValue);
+      let totalWidth = 300;
+      //TARE the scale
+      offset = currentValue;
+      FigmaText("#CurrentValue", (currentValue - offset) + "gr");
+      maxWeight = result.totalValue;
+    } catch (e) {
+      console.error("Error parsing message data:", e);
     }
+  });
+}
+ConnectAbly();
+
+//Add a connection to a web-ble UART device when the screen is pressed.
+//This device will send weight data to the program.
+connectBLEUART = async function () {
+  try {
+    await bleUART.connect();
+    console.log("Connected to BLE UART device");
+    //You can add more code here to handle incoming data from the device
+  } catch (error) {
+    console.log("Failed to connect to BLE UART device:", error);
   }
 }
-
-function setup() {
-  createCanvas(1, 1);
-}
-
-function draw() {}
-
-// NextScreen is a function that will be called when the right arrow is pressed
-let NextScreen = IntroScreen;
-// PreviousScreen is a function that will be called when the left arrow is pressed
-let PreviousScreen = VideoScreen;
-// Let's start with the initial screen, which is the video screen
-VideoScreen();
-
-let InactivityInterval;
-ResetInterval();
-
-function ResetInterval() {
-  clearInterval(InactivityInterval);
-  InactivityInterval = setInterval(() => {
-    // Inactivity timeout
-    VideoScreen();
-  }, 1000 * 60 * 5);
-}
-
-// Add the key bindings
-FigmaKey("ArrowRight", () => {
-  ResetInterval();
-  NextScreen();
+//When the scale sent an updated value, update the screen
+onBLELineReceived(function (line) {
+  console.log("Received line from BLE UART:", line);
+  let weight = parseFloat(line.replace("Weight: ", ""));
+  if (!isNaN(weight)) {
+    visibleValue = Math.max(0, Math.floor((weight - offset) / 10) * 10);
+    FigmaText("#CurrentValue", visibleValue + "gr");
+    let totalWidth = 300;
+    currentValue = weight;
+    let barWidth = ((visibleValue) / maxWeight) * totalWidth;
+    document.querySelector("#MovingBar").setAttribute("width", barWidth + "px");
+  }
 });
 
-FigmaKey("ArrowLeft", () => {
-  ResetInterval();
-  PreviousScreen();
-});
-
-// Screen to show a video
-function VideoScreen() {
-  document.querySelectorAll("video").forEach(x => x.remove());
-  document.querySelectorAll("svg").forEach(x => x.remove());
-  const video = fullScreenVideo("cobot.mp4");
-  NextScreen = () => {
-    document.querySelectorAll("video").forEach(x => x.remove());
-    document.querySelectorAll("svg").forEach(x => x.remove());
-    IntroScreen();
-  };
-  PreviousScreen = VideoScreen;
-}
-
-defaultState = (context = document) => {
-  // Hide the next button
-  FigmaElement(".Button",context).style("transition", "0s all ease-in-out").style("opacity", "0");
-  //Make sure the button will transition when it is shown
-  FigmaElement(".Button",context).style("transition", "2s all ease-in-out");
-  // Hide the modal
-  FigmaElement(".Modal",context).style("display", "none");
-}
-
-// Screen to introduce the program
-async function IntroScreen() {
+// Screen to show the scale readings
+async function ScaleScreen() {
   //wait unitll the Figma SVG export is loaded
-  page = await loadFigma("./FigmaExport/1-IntroScreen.svg");
-  NextScreen = OrganizeScreen;
-  PreviousScreen = VideoScreen;
-  defaultState(page);
-  client.publish("startHome", '1');
-  //Wait until the typewriter effect is done
-  await FigmaTypeWriter(".Type", typeWriterSpeed, page);
-  //Show the button
-  FigmaElement(".Button",page).style("opacity", "1").style("transition", "2s all ease-in-out");
-}
-// Screen to explain that the user needs to organize the objects
-async function OrganizeScreen() {
-  page = await loadFigma("./FigmaExport/2-OrganizeScreen.svg");
-  NextScreen = MarkerScreen;
-  PreviousScreen = IntroScreen;
-  defaultState(page);
-  client.publish("startHome", '1');
-  await FigmaTypeWriter(".Type", typeWriterSpeed,page);
-  await FigmaTypeWriter(".Type2", typeWriterSpeed,page);
-  FigmaElement(".Button",page).style("opacity", "1").style("transition", "2s all ease-in-out");
-}
-
-// Screen to explain that the user needs to draw the crosses
-async function MarkerScreen() {
-  page = await loadFigma("./FigmaExport/3-MarkerScreen.svg");
-  NextScreen = ValidateScreen;
-  PreviousScreen = OrganizeScreen;
-  defaultState();
-  await FigmaTypeWriter(".Type", typeWriterSpeed,page);
-  FigmaElement(".Button",page).style("opacity", "1").style("transition", "2s all ease-in-out");
-}
-
-// Screen to validate the sensed crosses
-async function ValidateScreen() {
-  await loadFigma("./FigmaExport/4-ValidateScreen.svg");
-  defaultState();
-  NextScreen = () => {};
-  PreviousScreen = MarkerScreen;
-  const fillValue = document.querySelector("#output").getAttribute("fill");
-  const objectID = "#image" + fillValue.match(/url\(#pattern(.*?)\)/)[1];
-  document.querySelector("#output").setAttribute("fill", "white");
-  image1 = "";
-  client.publish("startCapture", '1');
-  document.querySelector(".loadingbar .after").setAttribute("visibility", "hidden");
-  // Animate the loading bar while the robot is capturing the image
-  await smartAnimate(".loadingbar .before", ".loadingbar .after", 5000, d3.easeInOut);
-  /*while (programStatus !== 2) {
-    await sleep(10);
-    FigmaElement(".Button").style("opacity", "0");
-  }
-  while (image1 === "") {
-    await sleep(10);
-    FigmaElement(".Button").style("opacity", "0");
-  }*/
-  // The robot has captured the image
-  FigmaElement(".Button").style("transition", "2s all ease-in-out").style("opacity", "1");
-  FigmaElement(".loadingbar").style("opacity", "0");
-  FigmaElement(".BorderLoadingBar").style("opacity", "0");
-  document.querySelector("#output").setAttribute("fill", fillValue);
-  //document.querySelector(objectID).setAttribute("xlink:href", "data:image/png;base64," + image1);
-  FigmaElement("#output").style("opacity", "1");
-  NextScreen = async () => {
-    // The user has validated the image, robot will start moving
-    // No next screen, since the robot is moving and the information should stay there
-    NextScreen = () => {};
-    client.publish("startMovement", '1');
-    FigmaElement(".BackButton").style("transition", "0s all ease-in-out").style("opacity", "0");
-    FigmaElement(".Button").style("transition", "0s all ease-in-out").style("opacity", "0");
-    while (programStatus !== 3) {
-      await sleep(10);
-      FigmaElement(".Button").style("opacity", "0");
-    }
-    await sleep(5000);
-    FinishedScreen();
-  };
-}
-
-// Screen to show the finished state
-async function FinishedScreen() {
-  await loadFigma("./FigmaExport/5-FinishedScreen.svg");
-  defaultState();
-  NextScreen = VideoScreen;
-  PreviousScreen = VideoScreen;
-  client.publish("startHome", '1');
-  await FigmaTypeWriter(".Type", typeWriterSpeed);
-  FigmaElement(".Button").style("opacity", "1").style("transition", "2s all ease-in-out");
+  page = await loadFigma("./FigmaExport/Scale.svg");
+  //When tapping on the screen; connect to the BLE UART device
+  document.querySelector("svg").addEventListener("click", async function () {
+    await connectBLEUART();
+  });
+  FigmaText("#IngredientName", "Flour");
+  FigmaText("#CurrentValue", "100gr");
+  FigmaText("#TotalValue", "500");
+  document.querySelector("#MovingBar").setAttribute("width", "10px");
 }
