@@ -12,7 +12,7 @@ async function ConnectAbly() {
   });
   await realtimeClient.connection.once('connected');
   const channel = realtimeClient.channels.get('scale');
-  FigmaElement("#wifi").setAttribute("visibility", "visible");
+  FigmaElement("#wifi").setAttribute("opacity", "1");
   await channel.subscribe((message) => {
     console.log(`Received message: ${message.data}`);
     try {
@@ -71,7 +71,7 @@ async function ScaleScreen() {
       document.documentElement.requestFullscreen({ navigationUI: "hide" });
     }
   });
-  FigmaElement("#wifi").setAttribute("visibility", "hidden");
+  FigmaElement("#wifi").setAttribute("opacity", "0.2");
   FigmaButton("#Connect", connectBLEUART);
   FigmaText("#IngredientName", "Flour");
   FigmaText("#CurrentValue", "100gr");

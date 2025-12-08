@@ -13,7 +13,6 @@
 <path id="Vector_3" d="M315.53 52.11C316.545 51.3887 317.759 51.0012 319.005 51.0012C320.25 51.0012 321.465 51.3887 322.48 52.11" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
 <path id="Vector_4" d="M319 56H319.01" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
 </g>
-<rect id="Connect" opacity="0.01" x="137" width="86" height="86" fill="#D9D9D9"/>
 <g id="share-2">
 <path id="Vector_5" d="M186 44C187.657 44 189 42.6569 189 41C189 39.3431 187.657 38 186 38C184.343 38 183 39.3431 183 41C183 42.6569 184.343 44 186 44Z" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
 <path id="Vector_6" d="M174 51C175.657 51 177 49.6569 177 48C177 46.3431 175.657 45 174 45C172.343 45 171 46.3431 171 48C171 49.6569 172.343 51 174 51Z" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
@@ -21,9 +20,10 @@
 <path id="Vector_8" d="M176.59 49.51L183.42 53.49" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
 <path id="Vector_9" d="M183.41 42.51L176.59 46.49" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
 </g>
-<rect id="Fullscreen" opacity="0.01" width="86" height="86" fill="#D9D9D9"/>
 <g id="maximize">
 <path id="Vector_10" d="M37 39H34C33.4696 39 32.9609 39.2107 32.5858 39.5858C32.2107 39.9609 32 40.4696 32 41V44M50 44V41C50 40.4696 49.7893 39.9609 49.4142 39.5858C49.0391 39.2107 48.5304 39 48 39H45M45 57H48C48.5304 57 49.0391 56.7893 49.4142 56.4142C49.7893 56.0391 50 55.5304 50 55V52M32 52V55C32 55.5304 32.2107 56.0391 32.5858 56.4142C32.9609 56.7893 33.4696 57 34 57H37" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
 </g>
+<rect id="Connect" opacity="0.01" x="137" width="86" height="86" fill="#D9D9D9"/>
+<rect id="Fullscreen" opacity="0.01" width="86" height="86" fill="#D9D9D9"/>
 </g>
 </svg>

@@ -92,8 +92,8 @@ function FigmaText(elementSelector, text, scope = document) {
 Simple function to select an element by id
 */
 function FigmaElement(elementSelector, scope=document) {
-  if (select(elementSelector) != null) {
-    return select(elementSelector,scope);
+  if (scope.querySelector(elementSelector) != null) {
+    return scope.querySelector(elementSelector,scope);
   }else{
     console.error("Element with ID #" + elementSelector + " does not exist, check the name including capitalization");
     return null;
