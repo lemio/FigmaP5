@@ -6,9 +6,7 @@ async function ConnectAbly() {
                 key: '1aZF6A.gt939A:hrcPYLIfVugcTx7F0uugmetAVV3yM7ZQd2nN6gBlti0',
                 clientId: 'my-first-client'
             });
-
             await realtimeClient.connection.once('connected');
-            console.log('Made my first connection!');
             channel = realtimeClient.channels.get('scale');
         }
 ConnectAbly();

@@ -23,6 +23,7 @@ async function ConnectAbly() {
       offset = currentValue;
       FigmaText("#CurrentValue", (currentValue - offset) + "gr");
       maxWeight = result.totalValue;
+      FigmaElement("#Background").setAttribute("fill", "#000000");
     } catch (e) {
       console.error("Error parsing message data:", e);
     }
@@ -52,7 +53,11 @@ onBLELineReceived(function (line) {
     currentValue = weight;
     let barWidth = ((visibleValue) / maxWeight) * totalWidth;
     document.querySelector("#MovingBar").setAttribute("width", barWidth + "px");
+    if (visibleValue >= maxWeight) {
+      FigmaElement("#Background").setAttribute("fill", "#FF0000");
+    }
   }
+
 });
 
 // Screen to show the scale readings
