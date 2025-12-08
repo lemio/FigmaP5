@@ -1,0 +1,27 @@
+<svg width="1920" height="1080" viewBox="0 0 1920 1080" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g id="2-OrganizeScreenOLD">
+<rect width="1920" height="1080" fill="black"/>
+<g id="This demonstration showcases &#3; the ease and efficiency of human-robot collaboration, combining your intuitive inputs with the robot&#39;s accuracy. &#3;&#3; Enjoy exploring the future of collaborative automation!">
+<text fill="white" xml:space="preserve" style="white-space: pre" font-family="GT Sectra Fine" font-size="53" font-weight="500" letter-spacing="0em"><tspan x="960" y="622.152">&#10;</tspan><tspan x="475.521" y="686.152">Enjoy exploring the future of collaborative </tspan><tspan x="819.788" y="750.152">automation!</tspan></text>
+<text fill="white" xml:space="preserve" style="white-space: pre" font-family="Graphik" font-size="53" font-weight="bold" letter-spacing="0em"><tspan x="550.156" y="366.152">This demonstration showcases &#3;&#10;</tspan><tspan x="446.148" y="430.152">the ease and efficiency of human-robot </tspan><tspan x="448.503" y="494.152">collaboration, combining your intuitive </tspan><tspan x="528.832" y="558.152">inputs with the robot&#39;s accuracy. &#3;&#3;&#10;</tspan></text>
+</g>
+<g id="Button/">
+<g id="animation/">
+<g id="checked/">
+<g id="Button/_2">
+<path id="arrow/" d="M1733.41 787.95L1784.95 839.5L1733.41 891.05" stroke="white" stroke-width="8" stroke-miterlimit="10" stroke-linecap="round"/>
+<circle id="circle/" cx="1747.5" cy="839.5" r="86.5" stroke="white" stroke-opacity="0.99" stroke-width="2"/>
+</g>
+<text id="Text/" fill="white" xml:space="preserve" style="white-space: pre" font-family="Graphik" font-size="47" font-weight="300" letter-spacing="0em"><tspan x="1695.16" y="998.446">Start</tspan></text>
+</g>
+<g id="unchecked/">
+<g id="Button/_3">
+<path id="arrow/_2" d="M1781 835L1785 839.5L1781 844" stroke="white" stroke-opacity="0.01" stroke-width="8" stroke-miterlimit="10" stroke-linecap="round"/>
+<circle id="circle/_2" cx="1747.5" cy="839.5" r="86.5" stroke="white" stroke-opacity="0.01" stroke-width="2"/>
+</g>
+<text id="Text/_2" fill="white" fill-opacity="0.01" xml:space="preserve" style="white-space: pre" font-family="Graphik" font-size="47" font-weight="300" letter-spacing="0em"><tspan x="1695.16" y="998.446">Start</tspan></text>
+</g>
+</g>
+</g>
+</g>
+</svg>

@@ -1,0 +1,25 @@
+<svg width="390" height="844" viewBox="0 0 390 844" fill="none" xmlns="http://www.w3.org/2000/svg">
+<rect width="390" height="844" fill="#5E5E5E"/>
+<g id="Login">
+<rect width="390" height="844" fill="black"/>
+<g id="Close">
+<rect width="94" height="93" transform="translate(148 14)" fill="black" fill-opacity="0.01"/>
+<rect id="Rectangle 10" x="209.234" y="41.0546" width="8" height="47" transform="rotate(45 209.234 41.0546)" fill="white"/>
+<rect id="Rectangle 11" x="214.891" y="74.2886" width="8" height="47" transform="rotate(135 214.891 74.2886)" fill="white"/>
+</g>
+<g id="Enter">
+<rect width="94" height="93" transform="translate(265 460)" fill="black" fill-opacity="0.01"/>
+<rect id="Rectangle 10_2" x="317.821" y="501.467" width="8" height="26.6173" transform="rotate(45 317.821 501.467)" fill="white"/>
+<rect id="Rectangle 11_2" x="324.183" y="506.581" width="8" height="27.614" transform="rotate(135 324.183 506.581)" fill="white"/>
+</g>
+<text id="Login Example" fill="white" xml:space="preserve" style="white-space: pre" font-family="Source Code Pro" font-size="25" font-weight="bold" letter-spacing="0em"><tspan x="97.5635" y="123.888">Login Example</tspan></text>
+<text id="Name" fill="white" xml:space="preserve" style="white-space: pre" font-family="Source Code Pro" font-size="25" letter-spacing="0em"><tspan x="43" y="314.388">Name </tspan></text>
+<text id="Email" fill="white" xml:space="preserve" style="white-space: pre" font-family="Source Code Pro" font-size="25" letter-spacing="0em"><tspan x="43" y="399.388">Email</tspan></text>
+<rect id="InputName" x="42" y="323" width="317" height="29" fill="#434343"/>
+<rect id="InputEmail" x="42" y="409" width="317" height="29" fill="#434343"/>
+<text id="InputNameText" fill="white" xml:space="preserve" style="white-space: pre" font-family="Source Code Pro" font-size="20" letter-spacing="0em"><tspan x="44" y="345.11">InputNameText</tspan></text>
+<text id="InputEmailText" fill="white" xml:space="preserve" style="white-space: pre" font-family="Source Code Pro" font-size="20" letter-spacing="0em"><tspan x="44" y="430.11">InputNameEmail</tspan></text>
+<rect id="Rectangle 12" x="42" y="352" width="317" height="3" fill="#D9D9D9"/>
+<rect id="Rectangle 13" x="42" y="438" width="317" height="3" fill="#D9D9D9"/>
+</g>
+</svg>

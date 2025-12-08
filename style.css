@@ -1,0 +1,209 @@
+/*
+Avoid text selection
+*/
+@font-face {
+  font-family: 'Graphik';
+  src: url("fonts/Graphik-Black Italic.ttf") format('truetype');
+  font-weight: 900;
+  font-style: italic;
+}
+@font-face {
+  font-family: 'Graphik';
+  src: url("fonts/Graphik-Black.ttf") format('truetype');
+  font-weight: 900;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'Graphik';
+  src: url("fonts/Graphik-Bold Italic.ttf") format('truetype');
+  font-weight: 700;
+  font-style: italic;
+}
+@font-face {
+  font-family: 'Graphik';
+  src: url("fonts/Graphik-Bold.ttf") format('truetype');
+  font-weight: 700;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'Graphik';
+  src: url("fonts/Graphik-Extralight Italic.ttf") format('truetype');
+  font-weight: 200;
+  font-style: italic;
+}
+@font-face {
+  font-family: 'Graphik';
+  src: url("fonts/Graphik-Extralight.ttf") format('truetype');
+  font-weight: 200;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'Graphik';
+  src: url("fonts/Graphik-Light Italic.ttf") format('truetype');
+  font-weight: 300;
+  font-style: italic;
+}
+@font-face {
+  font-family: 'Graphik';
+  src: url("fonts/Graphik-Light.ttf") format('truetype');
+  font-weight: 300;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'Graphik';
+  src: url("fonts/Graphik-Medium Italic.ttf") format('truetype');
+  font-weight: 500;
+  font-style: italic;
+}
+@font-face {
+  font-family: 'Graphik';
+  src: url("fonts/Graphik-Medium.ttf") format('truetype');
+  font-weight: 500;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'Graphik';
+  src: url("fonts/Graphik-Regular Italic.ttf") format('truetype');
+  font-weight: 400;
+  font-style: italic;
+}
+@font-face {
+  font-family: 'Graphik';
+  src: url("fonts/Graphik-Regular.ttf") format('truetype');
+  font-weight: 400;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'Graphik';
+  src: url("fonts/Graphik-Semibold Italic.ttf") format('truetype');
+  font-weight: 600;
+  font-style: italic;
+}
+@font-face {
+  font-family: 'Graphik';
+  src: url("fonts/Graphik-Semibold.ttf") format('truetype');
+  font-weight: 600;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'Graphik';
+  src: url("fonts/Graphik-Super Italic.ttf") format('truetype');
+  font-weight: 800;
+  font-style: italic;
+}
+@font-face {
+  font-family: 'Graphik';
+  src: url("fonts/Graphik-Super.ttf") format('truetype');
+  font-weight: 800;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'Graphik';
+  src: url("fonts/Graphik-Thin Italic.ttf") format('truetype');
+  font-weight: 100;
+  font-style: italic;
+}
+@font-face {
+  font-family: 'Graphik';
+  src: url("fonts/Graphik-Thin.ttf") format('truetype');
+  font-weight: 100;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'GT Sectra Fine';
+  src: url("fonts/GT-Sectra-Fine-Bold.otf") format('opentype');
+  font-weight: 700;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'GT Sectra Fine';
+  src: url("fonts/GT-Sectra-Fine-Book.otf") format('opentype');
+  font-weight: 400;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'GT Sectra Fine';
+  src: url("fonts/GT-Sectra-Fine-Medium.otf") format('opentype');
+  font-weight: 500;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'GT Sectra Fine';
+  src: url("fonts/GT-Sectra-Fine-Regular.otf") format('opentype');
+  font-weight: 400;
+  font-style: normal;
+}
+
+.Type tspan{
+  animation: typewriter 4s steps(44) 1s 1 normal both,
+             blinkTextCursor 500ms steps(44) infinite normal;
+}
+@keyframes typewriter{
+  from{width: 0;}
+  to{width: 24em;}
+}
+@keyframes blinkTextCursor{
+  from{border-right-color: rgba(255,255,255,.75);}
+  to{border-right-color: transparent;}
+}
+*{
+  -webkit-user-select: none; /* Safari */        
+-moz-user-select: none; /* Firefox */
+-ms-user-select: none; /* IE10+/Edge */
+user-select: none; /* Standard */
+cursor: none;
+}
+/*
+Make sure the body is 100% of the view
+*/
+
+html, body {
+  margin: 0;
+  padding: 0;
+  width:  100%;
+  height: 100%;
+  position: fixed;
+  background-color: black;
+}
+canvas {
+  display: block;
+}
+
+
+html, body {
+  overscroll-behavior: none;
+  margin: 0;
+  padding: 0;
+}
+
+canvas {
+  display: block;
+}
+#scrollableContent{
+  overflow-x: scroll;
+  position: fixed;
+  left: 20px;
+  top:0px;
+  width: 200px;
+  height: 200px;
+}
+input[type="text"] {
+  border: 0px;
+  background: none;
+}
+
+#webcamContent{
+  position: absolute;
+  object-fit: cover;
+  z-index: 100;
+  transform: perspective(1000px) matrix3d(
+  -2.75477551,  1.93554489,  0,  2109.33881,
+   0.07109944, -3.75186275,  0,  2207.42431,
+   0,          0,           0,  1,
+  -0.0001755018,  0.004713308,  1,  0
+);
+
+/*https://codesandbox.io/p/sandbox/perspective-coding-49zyqr*/
+/*https://franklinta.com/2014/09/08/computing-css-matrix3d-transforms/*/
+
+}
