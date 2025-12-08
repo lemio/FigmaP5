@@ -1,8 +1,9 @@
-<svg width="590" height="1192" viewBox="0 0 590 1192" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<svg width="591" height="1192" viewBox="0 0 591 1192" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
 <g id="Bread">
 <rect id="Screenshot 2025-12-08 at 18.37.32-1" width="589.5" height="1192" fill="url(#pattern0_1147_57546)"/>
 <rect id="Screenshot 2025-12-08 at 18.37.29" width="589.5" height="645" fill="url(#pattern1_1147_57546)"/>
 <rect id="Button" y="730" width="590" height="77" fill="#D9D9D9" fill-opacity="0.01"/>
+<rect id="Back" x="0.25" width="590" height="77" fill="#D9D9D9" fill-opacity="0.01"/>
 </g>
 <defs>
 <pattern id="pattern0_1147_57546" patternContentUnits="objectBoundingBox" width="1" height="1">

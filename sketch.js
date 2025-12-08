@@ -12,6 +12,7 @@ async function ConnectAbly() {
   });
   await realtimeClient.connection.once('connected');
   const channel = realtimeClient.channels.get('scale');
+  FigmaElement("#wifi").setAttribute("visibility", "visible");
   await channel.subscribe((message) => {
     console.log(`Received message: ${message.data}`);
     try {
@@ -65,9 +66,13 @@ async function ScaleScreen() {
   //wait unitll the Figma SVG export is loaded
   page = await loadFigma("./FigmaExport/Scale.svg");
   //When tapping on the screen; connect to the BLE UART device
-  document.querySelector("svg").addEventListener("click", async function () {
-    await connectBLEUART();
+  FigmaButton("#Fullscreen", () => {
+    if (!document.fullscreenElement) {
+      document.documentElement.requestFullscreen({ navigationUI: "hide" });
+    }
   });
+  FigmaElement("#wifi").setAttribute("visibility", "hidden");
+  FigmaButton("#Connect", connectBLEUART);
   FigmaText("#IngredientName", "Flour");
   FigmaText("#CurrentValue", "100gr");
   FigmaText("#TotalValue", "500");
