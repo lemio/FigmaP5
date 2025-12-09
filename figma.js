@@ -95,7 +95,7 @@ function FigmaElement(elementSelector, scope=document) {
   if (scope.querySelector(elementSelector) != null) {
     return scope.querySelector(elementSelector,scope);
   }else{
-    console.error("Element with ID #" + elementSelector + " does not exist, check the name including capitalization");
+    console.error("Element with ID " + elementSelector + " does not exist, check the name including capitalization");
     return null;
   }
 }

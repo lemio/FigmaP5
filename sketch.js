@@ -3,7 +3,34 @@ ScaleScreen()
 let maxWeight = 500;
 let offset = 17000;
 let currentValue = 17000;
+let triggered = false;
+let sounds, sound1, sound2, sound3, sound4, sound_end, sound_received;
+function setup(){
+  sound1 = loadSound("sound/1.wav");
+  sound2 = loadSound("sound/2.wav");
+  sound3 = loadSound("sound/3.wav");
+  sound4 = loadSound("sound/4.wav");
+  sound_end = loadSound("sound/end.wav");
+  sound_received = loadSound("sound/received.wav");
 
+  sounds = [{
+  sound: sound1,
+  ratio: 0.60,
+  played: false
+},{
+  sound: sound2,
+  ratio: 0.70,
+  played: false 
+},{
+  sound: sound3,
+  ratio: 0.80,
+  played: false
+},{
+  sound: sound4,
+  ratio: 0.90,
+  played: false
+}];
+}
 
 async function ConnectAbly() {
   const realtimeClient = new Ably.Realtime({
@@ -12,19 +39,24 @@ async function ConnectAbly() {
   });
   await realtimeClient.connection.once('connected');
   const channel = realtimeClient.channels.get('scale');
-  FigmaElement("#wifi").setAttribute("opacity", "1");
+  FigmaElement("#wifi").style.opacity = "1";
   await channel.subscribe((message) => {
     console.log(`Received message: ${message.data}`);
     try {
+      triggered = false;
+      sounds.forEach((s) => {
+        s.played = false;
+    });
       result = JSON.parse(message.data);
       FigmaText("#IngredientName", result.ingredient);
       FigmaText("#TotalValue", result.totalValue);
       let totalWidth = 300;
       //TARE the scale
+      sound_received.play();
       offset = currentValue;
       FigmaText("#CurrentValue", (currentValue - offset) + "gr");
       maxWeight = result.totalValue;
-      FigmaElement("#Background").setAttribute("fill", "#000000");
+      //FigmaElement("#Background").setAttribute("fill", "#000000");
     } catch (e) {
       console.error("Error parsing message data:", e);
     }
@@ -48,6 +80,12 @@ onBLELineReceived(function (line) {
   console.log("Received line from BLE UART:", line);
   let weight = parseFloat(line.replace("Weight: ", ""));
   if (!isNaN(weight)) {
+    sounds.forEach((s) => {
+      if (!s.played && weight >= offset + s.ratio * maxWeight) {
+        s.sound.play();
+        s.played = true;
+      }
+    });
     visibleValue = Math.max(0, Math.floor((weight - offset) / 10) * 10);
     FigmaText("#CurrentValue", visibleValue + "gr");
     let totalWidth = 300;
@@ -55,7 +93,14 @@ onBLELineReceived(function (line) {
     let barWidth = ((visibleValue) / maxWeight) * totalWidth;
     document.querySelector("#MovingBar").setAttribute("width", barWidth + "px");
     if (visibleValue >= maxWeight) {
-      FigmaElement("#Background").setAttribute("fill", "#FF0000");
+      console.log("Max weight reached!");
+      if (triggered===false){
+        triggered = true;
+        sound_end.play();
+      }
+      FigmaElement("#Foreground").style.opacity = "1";
+    }else{
+      FigmaElement("#Foreground").style.opacity = "0";
     }
   }
 
@@ -70,8 +115,12 @@ async function ScaleScreen() {
     if (!document.fullscreenElement) {
       document.documentElement.requestFullscreen({ navigationUI: "hide" });
     }
+    userStartAudio();
   });
-  FigmaElement("#wifi").setAttribute("opacity", "0.2");
+  FigmaElement("#Foreground").style.opacity = "0";
+  FigmaElement("#Foreground").style.mixBlendMode = "difference";
+  FigmaElement("#Foreground").style.transition = "opacity 0.2s ease-in-out";
+  FigmaElement("#wifi").style.opacity = "0.2";
   FigmaButton("#Connect", connectBLEUART);
   FigmaText("#IngredientName", "Flour");
   FigmaText("#CurrentValue", "100gr");

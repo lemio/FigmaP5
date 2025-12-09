@@ -25,6 +25,7 @@
 </g>
 <rect id="Connect" opacity="0.01" x="223" y="640" width="86" height="86" transform="rotate(-180 223 640)" fill="#D9D9D9"/>
 <rect id="Fullscreen" opacity="0.01" x="360" y="640" width="86" height="86" transform="rotate(-180 360 640)" fill="#D9D9D9"/>
+<rect id="Foreground" opacity="0.01" y="3.14722e-05" width="360" height="554" fill="white"/>
 </g>
 <defs>
 <clipPath id="clip0_1144_57477">
