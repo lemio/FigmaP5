@@ -1,5 +1,5 @@
 
-https://github.com/user-attachments/assets/82d07094-fb52-4eee-b374-9ceb6011fdb9
+
 
 # Figma SVG Importer for p5.js
 
@@ -55,8 +55,6 @@ Using async await:
 await loadFigma("./FigmaExport/MainScreen.svg");
 console.log("MainScreen loaded");
 ```
-
-
 
 ## Fonts
 

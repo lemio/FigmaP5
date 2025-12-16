@@ -15,6 +15,14 @@ async function ConnectAbly() {
             });
             await realtimeClient.connection.once('connected');
             channel = realtimeClient.channels.get('scale');
+            await channel.subscribe((message) => {
+              console.log(`Received message: ${message.data}`);
+              let result = JSON.parse(message.data);
+              if (!result.done){
+                return;
+              }  
+                FigmaElement("#"+result.ingredient).style.opacity = "0.3";
+            });
         }
 ConnectAbly();
 
@@ -32,6 +40,7 @@ async function BreadSteps() {
   page = await loadFigma("./FigmaExport/BreadSteps.svg");
   FigmaButton("#Back",BreadScreen)
   FigmaButton("#Flour", () => {channel.publish("scale", JSON.stringify({ ingredient: "Flour", totalValue: 550 }))})
+  FigmaButton("#Yeast", () => {FigmaElement("#Yeast").style.opacity = "0.3"})
   FigmaButton("#Water", () => {channel.publish("scale", JSON.stringify({ ingredient: "Water", totalValue: 350 }))})
   FigmaButton("#Salt", () => {channel.publish("scale", JSON.stringify({ ingredient: "Salt", totalValue: 10 }))})
 }

@@ -31,7 +31,7 @@ let offset = 17000;
 let currentValue = 17000;
 // Prevents playing the "complete" sound multiple times
 let triggered = false;
-
+let currentIngredient = "Flour";
 // Sound files that play at different stages of weighing
 let sounds, sound_received;
 
@@ -65,14 +65,14 @@ function setup() {
     }
   ];
 }
-
+let channel;
 async function ConnectAbly(onConnect, messageCallback) {
   const realtimeClient = new Ably.Realtime({
     key: "1aZF6A.gt939A:hrcPYLIfVugcTx7F0uugmetAVV3yM7ZQd2nN6gBlti0",
     clientId: "my-first-client",
   });
   await realtimeClient.connection.once("connected");
-  const channel = realtimeClient.channels.get("scale");
+  channel = realtimeClient.channels.get("scale");
   onConnect();
 
   await channel.subscribe((message) => {
@@ -96,12 +96,16 @@ function messageCallback(message) {
     console.error("Invalid JSON received:", message.data);
     return;
   }
+  if (result.done) {
+    return;
+  }
   //Reset the state of all the sounds
   triggered = false;
   sounds.forEach((sound) => {
     sound.played = false;
   });
 
+  currentIngredient = result.ingredient;
   FigmaText("#IngredientName", result.ingredient);
   FigmaText("#TotalValue", result.totalValue);
   let totalWidth = 300;
@@ -141,6 +145,7 @@ onBLELineReceived(function (line) {
       if (!sound.played && weight >= offset + sound.ratio * maxWeight) {
         sound.sound.play();
         sound.played = true;
+
       }
     });
 
@@ -156,6 +161,7 @@ onBLELineReceived(function (line) {
     
     //Check if the max weight has been reached
     if (visibleValue >= maxWeight) {
+      channel.publish("scale", JSON.stringify({done:true, ingredient: currentIngredient, currentValue: currentValue}));
       console.log("Max weight reached!");
       FigmaElement("#Foreground").style.opacity = "1";
     } else {
