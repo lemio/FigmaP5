@@ -1,3 +1,10 @@
+/*
+ * SMART KITCHEN SCALE APP
+ * 
+ * Simple Web app based on the AH Supermaket app.
+ * This app shows an overview of recipes and allows sending
+ * weighing instructions to the physical scale via Ably.
+ */
 
 let channel;
 
